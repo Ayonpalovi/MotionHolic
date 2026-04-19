@@ -21,7 +21,7 @@ const workVideos = [
   "https://www.youtube.com/embed/KPZ39Q9x1OY?si=QeUn2ery8GuBHWL-",
   "https://www.youtube.com/embed/jZ42Sq9qYr0?si=pRm679iehCOtaE0a",
   "https://www.youtube.com/embed/a5fa0qlvk38?si=Xt1AXJaBeF0Tbdhq",
-
+  "https://www.youtube.com/embed/UzKvcKpJQLY?si=FLn-dKqRXZaKsTsN",
 ];
 
 const navItems = [
