@@ -576,7 +576,7 @@ export default function MotionHolicPortfolio() {
             <div className="mx-auto max-w-4xl text-center">
               <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
                 <h1 className="mx-auto max-w-4xl text-5xl font-semibold leading-[0.95] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-[88px]">
-                  from frame to frame, <span className="text-[#0051FF]">we grow your name</span>
+                  From Frame to Frame, <span className="text-[#0051FF]">We Grow Your Name</span>
                 </h1>
                 <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">
                   From attention-grabbing videos to high-impact designs, I help creators and brands captivate their audience.
