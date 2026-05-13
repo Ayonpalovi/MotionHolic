@@ -200,7 +200,7 @@ export default function OSProcessSection() {
         }
       `}</style>
 
-      <section className="relative overflow-hidden bg-[#05070b] px-4 py-24 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden bg-[#05070b] px-4 py-16 sm:px-6 lg:px-8">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_15%,rgba(0,81,255,0.16),transparent_28%),radial-gradient(circle_at_15%_70%,rgba(0,81,255,0.08),transparent_28%),radial-gradient(circle_at_85%_65%,rgba(0,81,255,0.08),transparent_28%)]" />
 
         <div className="relative mx-auto max-w-7xl text-center">
@@ -208,7 +208,7 @@ export default function OSProcessSection() {
           <AnimatedHeading />
         </div>
 
-        <div ref={timelineRef} className="relative mx-auto mt-20 max-w-7xl space-y-20 md:space-y-28">
+        <div ref={timelineRef} className="relative mx-auto mt-10 max-w-7xl space-y-14 md:space-y-20">
           <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-white/10 md:block" />
           <motion.div
             style={{ height: progressHeight }}
@@ -231,7 +231,7 @@ export default function OSProcessSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.6 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mt-20 flex justify-center"
+          className="relative mt-14 flex justify-center"
         >
           <button
             onClick={openCalendly}
