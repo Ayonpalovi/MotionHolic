@@ -13,6 +13,7 @@
   --motionholic-black: #050505;
   --motionholic-card: #111111;
   --motionholic-line: rgba(255, 255, 255, 0.1);
+  --process-line-start: 58px;
 }
 
 html {
@@ -242,6 +243,53 @@ img {
   box-shadow: 0 0 0 10px rgba(255,255,255,0.035), 0 0 55px rgba(0, 81, 255, 0.55) !important;
 }
 
+#process > div > div:first-child {
+  margin-bottom: clamp(1.75rem, 4vw, 3rem) !important;
+}
+
+#process [class*="space-y"] {
+  position: relative;
+}
+
+#process [class*="absolute"][class*="left-1/2"][class*="w-px"] {
+  top: var(--process-line-start) !important;
+  bottom: 0 !important;
+  height: auto;
+  width: 2px !important;
+  border-radius: 999px;
+  transform: translateX(-50%);
+}
+
+#process [class*="absolute"][class*="left-1/2"][class*="w-px"][class*="bg-white"] {
+  background: rgba(255, 255, 255, 0.72) !important;
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.08);
+}
+
+#process [class*="absolute"][class*="left-1/2"][class*="w-px"][class*="bg-[#0051FF]"] {
+  bottom: auto !important;
+  min-height: 0 !important;
+  background: linear-gradient(180deg, #0051FF 0%, #2f70ff 72%, rgba(0, 81, 255, 0.92) 100%) !important;
+  box-shadow: 0 0 18px rgba(0, 81, 255, 0.72), 0 0 42px rgba(0, 81, 255, 0.28);
+  transition: height 120ms linear;
+}
+
+#process [class*="grid"][class*="md:grid-cols"]:first-of-type::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 1;
+  width: 12px;
+  height: var(--process-line-start);
+  transform: translateX(-50%);
+  background: #050505;
+  pointer-events: none;
+}
+
+#process [class*="grid"][class*="md:grid-cols"]:first-of-type [class*="h-14"][class*="w-14"] {
+  box-shadow: 0 0 0 10px rgba(5,5,5,0.96), 0 0 45px rgba(0,81,255,0.28) !important;
+}
+
 footer {
   background:
     radial-gradient(circle at 50% 0%, rgba(0, 81, 255, 0.16), transparent 32rem),
@@ -312,6 +360,10 @@ footer {
 }
 
 @media (max-width: 767px) {
+  :root {
+    --process-line-start: 48px;
+  }
+
   body {
     background:
       radial-gradient(circle at 50% 0%, rgba(0, 81, 255, 0.18), transparent 22rem),
@@ -342,6 +394,20 @@ footer {
 
   section {
     padding-block: 5rem !important;
+  }
+
+  #process > div > div:first-child {
+    margin-bottom: 1.5rem !important;
+  }
+
+  #process [class*="absolute"][class*="left-1/2"][class*="w-px"] {
+    left: 1.75rem !important;
+    transform: none;
+  }
+
+  #process [class*="grid"][class*="md:grid-cols"]:first-of-type::before {
+    left: 1.75rem;
+    transform: none;
   }
 
   [class*="rounded-[32px]"],
