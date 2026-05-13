@@ -54,11 +54,11 @@ function AnimatedStat({ value, suffix, label, delay = 0 }) {
       <motion.div
         whileHover={{ scale: 1.03, y: -2 }}
         transition={{ duration: 0.25 }}
-        className="bg-gradient-to-b from-[#0051FF] via-white to-[#7AA7FF] bg-clip-text text-6xl font-black leading-none tracking-[-0.07em] text-transparent sm:text-7xl md:text-8xl lg:text-[7.5rem]"
+        className="bg-gradient-to-b from-[#0051FF] via-white to-[#7AA7FF] bg-clip-text text-5xl font-black leading-none tracking-[-0.06em] text-transparent sm:text-6xl md:text-7xl lg:text-[6.25rem]"
       >
         {valueText}
       </motion.div>
-      <p className="mt-3 text-base font-semibold uppercase tracking-[0.22em] text-white/60 sm:text-lg md:text-xl">
+      <p className="mt-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/60 sm:text-base md:text-lg">
         {label}
       </p>
     </motion.div>
@@ -113,8 +113,8 @@ export default function BlendedStatsSection() {
         }
       `}</style>
 
-      <section className="relative overflow-hidden bg-[#05070b] px-4 py-16 sm:px-6 lg:px-8">
-        <div className="relative mx-auto grid max-w-6xl gap-10 md:grid-cols-3 md:gap-8">
+      <section className="relative overflow-hidden bg-[#05070b] px-4 py-14 sm:px-6 lg:px-8">
+        <div className="relative mx-auto grid max-w-5xl gap-9 md:grid-cols-3 md:gap-7">
           {stats.map((stat, index) => (
             <AnimatedStat key={stat.label} {...stat} delay={index * 0.07} />
           ))}
