@@ -139,29 +139,33 @@ section[id], footer {
   border-top: 1px solid rgba(255, 255, 255, 0.035);
 }
 
-/* Remove the harsh band before Process and keep the global background visible */
-#process {
+/* Our Process uses only the global page background — no section-specific background layer. */
+#process,
+#process::before,
+#process::after,
+#process > div,
+#process > div::before,
+#process > div::after,
+#process > div > div:first-child {
   background: transparent !important;
   background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#process {
   margin-top: 0 !important;
   overflow: visible !important;
 }
 
-#process::before {
-  inset: -160px 0 -80px;
-  background:
-    radial-gradient(circle at 50% 0%, rgba(0,81,255,0.075), transparent 34rem),
-    linear-gradient(180deg, transparent 0%, rgba(0,81,255,0.020) 28%, rgba(255,255,255,0.010) 58%, transparent 100%);
-}
-
-#process > div {
-  background: transparent !important;
-  background-color: transparent !important;
+#process::before,
+#process::after {
+  content: none !important;
+  display: none !important;
 }
 
 #process > div > div:first-child {
   margin-bottom: clamp(1.75rem, 4vw, 3rem) !important;
-  background: transparent !important;
 }
 
 header {
