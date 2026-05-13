@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+import { AnimatePresence, motion } from "framer-motion";
 
 const fallbackVideos = [
   "https://www.youtube.com/embed/WZQZoJwTbkw?si=oxI45XuFFzFiGJ_w",
@@ -9,14 +10,14 @@ const fallbackVideos = [
   "https://www.youtube.com/embed/WZQZoJwTbkw?si=oxI45XuFFzFiGJ_w",
 ];
 
-function getUniqueVideos(section) {
+function getFiveVideos(section) {
   const iframeSources = Array.from(section.querySelectorAll("iframe"))
     .map((iframe) => iframe.getAttribute("src"))
     .filter(Boolean)
     .filter((src) => src.includes("youtube.com/embed"));
 
   const sources = iframeSources.length ? iframeSources : fallbackVideos;
-  return [...new Set(sources)];
+  return [...sources, ...fallbackVideos].slice(0, 5);
 }
 
 function getEnhancedEmbedUrl(src) {
@@ -44,6 +45,7 @@ export default function MZTestimonialCarousel() {
   const [mountNode, setMountNode] = useState(null);
   const [videos, setVideos] = useState(fallbackVideos);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
 
   useEffect(() => {
     let timeoutId;
@@ -52,7 +54,7 @@ export default function MZTestimonialCarousel() {
       const section = document.getElementById("testimonials");
       if (!section) return false;
 
-      const originalVideos = getUniqueVideos(section);
+      const originalVideos = getFiveVideos(section);
       setVideos(originalVideos.length ? originalVideos : fallbackVideos);
       section.setAttribute("data-testimonial-override", "true");
 
@@ -85,11 +87,18 @@ export default function MZTestimonialCarousel() {
   const activeVideo = useMemo(() => getEnhancedEmbedUrl(videos[activeIndex] || fallbackVideos[0]), [videos, activeIndex]);
 
   const showPrevious = () => {
+    setDirection(-1);
     setActiveIndex((current) => (current - 1 + videos.length) % videos.length);
   };
 
   const showNext = () => {
+    setDirection(1);
     setActiveIndex((current) => (current + 1) % videos.length);
+  };
+
+  const selectVideo = (index) => {
+    setDirection(index > activeIndex ? 1 : -1);
+    setActiveIndex(index);
   };
 
   if (!mountNode) return null;
@@ -131,16 +140,23 @@ export default function MZTestimonialCarousel() {
           <div className="relative w-[270px] rounded-[30px] border border-white/10 bg-white/5 p-2 shadow-[0_30px_120px_rgba(0,81,255,0.18)] backdrop-blur-2xl sm:w-[315px] md:w-[350px]">
             <div className="pointer-events-none absolute inset-0 rounded-[30px] bg-gradient-to-b from-white/10 via-transparent to-[#0051FF]/10" />
             <div className="relative aspect-[9/16] overflow-hidden rounded-[24px] bg-black">
-              <iframe
-                key={`${activeIndex}-${activeVideo}`}
-                className="h-full w-full"
-                src={activeVideo}
-                title={`MotionHolic client testimonial ${activeIndex + 1}`}
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.iframe
+                  key={`${activeIndex}-${activeVideo}`}
+                  custom={direction}
+                  initial={{ opacity: 0, x: direction * 38, scale: 0.96, filter: "blur(8px)" }}
+                  animate={{ opacity: 1, x: 0, scale: 1, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, x: direction * -38, scale: 0.96, filter: "blur(8px)" }}
+                  transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute inset-0 h-full w-full"
+                  src={activeVideo}
+                  title={`MotionHolic client testimonial ${activeIndex + 1}`}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              </AnimatePresence>
             </div>
           </div>
 
@@ -158,8 +174,8 @@ export default function MZTestimonialCarousel() {
           {videos.map((video, index) => (
             <button
               key={`${video}-${index}`}
-              onClick={() => setActiveIndex(index)}
-              className={`h-2.5 rounded-full transition-all ${index === activeIndex ? "w-8 bg-[#0051FF]" : "w-2.5 bg-white/20 hover:bg-white/45"}`}
+              onClick={() => selectVideo(index)}
+              className={`h-2.5 rounded-full transition-all duration-300 ${index === activeIndex ? "w-8 bg-[#0051FF]" : "w-2.5 bg-white/20 hover:bg-white/45"}`}
               type="button"
               aria-label={`Show testimonial ${index + 1}`}
             />
