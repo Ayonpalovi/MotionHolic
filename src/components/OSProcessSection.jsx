@@ -154,7 +154,7 @@ function StepCard({ step }) {
 export default function OSProcessSection() {
   const [mountNode, setMountNode] = useState(null);
   const timelineRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: timelineRef, offset: ["start 25%", "end 75%"] });
+  const { scrollYProgress } = useScroll({ target: timelineRef, offset: ["start 28%", "end 78%"] });
   const progressHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   useEffect(() => {
@@ -200,7 +200,7 @@ export default function OSProcessSection() {
         }
       `}</style>
 
-      <section className="relative overflow-hidden bg-[#05070b] px-4 py-16 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden bg-[#05070b] px-4 py-12 sm:px-6 lg:px-8">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_15%,rgba(0,81,255,0.16),transparent_28%),radial-gradient(circle_at_15%_70%,rgba(0,81,255,0.08),transparent_28%),radial-gradient(circle_at_85%_65%,rgba(0,81,255,0.08),transparent_28%)]" />
 
         <div className="relative mx-auto max-w-7xl text-center">
@@ -208,17 +208,17 @@ export default function OSProcessSection() {
           <AnimatedHeading />
         </div>
 
-        <div ref={timelineRef} className="relative mx-auto mt-10 max-w-7xl space-y-14 md:space-y-20">
-          <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-white/10 md:block" />
+        <div ref={timelineRef} className="relative mx-auto mt-5 max-w-7xl space-y-10 md:space-y-14">
+          <div className="absolute left-1/2 top-14 hidden h-[calc(100%-3.5rem)] w-px -translate-x-1/2 bg-white/35 md:block" />
           <motion.div
             style={{ height: progressHeight }}
-            className="absolute left-1/2 top-0 hidden w-px -translate-x-1/2 bg-[#0051FF] shadow-[0_0_28px_rgba(0,81,255,0.7)] md:block"
+            className="absolute left-1/2 top-14 hidden max-h-[calc(100%-3.5rem)] w-px -translate-x-1/2 origin-top bg-[#0051FF] shadow-[0_0_28px_rgba(0,81,255,0.7)] md:block"
           />
 
-          <div className="absolute left-7 top-0 h-full w-px bg-white/10 md:hidden" />
+          <div className="absolute left-7 top-14 h-[calc(100%-3.5rem)] w-px bg-white/35 md:hidden" />
           <motion.div
             style={{ height: progressHeight }}
-            className="absolute left-7 top-0 w-px bg-[#0051FF] shadow-[0_0_28px_rgba(0,81,255,0.7)] md:hidden"
+            className="absolute left-7 top-14 max-h-[calc(100%-3.5rem)] w-px origin-top bg-[#0051FF] shadow-[0_0_28px_rgba(0,81,255,0.7)] md:hidden"
           />
 
           {processSteps.map((step) => (
@@ -231,7 +231,7 @@ export default function OSProcessSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.6 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mt-14 flex justify-center"
+          className="relative mt-12 flex justify-center"
         >
           <button
             onClick={openCalendly}
