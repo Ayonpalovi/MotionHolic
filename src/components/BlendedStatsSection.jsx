@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 
@@ -25,7 +25,7 @@ function AnimatedStat({ value, suffix, label, delay = 0 }) {
   useEffect(() => {
     let animationFrame;
     const startTime = performance.now();
-    const duration = 1500;
+    const duration = 1300;
 
     const tick = (now) => {
       const progress = Math.min((now - startTime) / duration, 1);
@@ -45,20 +45,20 @@ function AnimatedStat({ value, suffix, label, delay = 0 }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 28, filter: "blur(10px)" }}
+      initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: false, amount: 0.35 }}
-      transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="relative flex flex-col items-center justify-center text-center"
+      transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
+      className="flex flex-col items-center justify-center text-center"
     >
       <motion.div
-        whileHover={{ scale: 1.04, y: -3 }}
+        whileHover={{ scale: 1.03, y: -2 }}
         transition={{ duration: 0.25 }}
-        className="bg-gradient-to-b from-[#0051FF] via-white to-[#7AA7FF] bg-clip-text text-7xl font-black leading-none tracking-[-0.08em] text-transparent sm:text-8xl md:text-9xl lg:text-[9.5rem]"
+        className="bg-gradient-to-b from-[#0051FF] via-white to-[#7AA7FF] bg-clip-text text-6xl font-black leading-none tracking-[-0.07em] text-transparent sm:text-7xl md:text-8xl lg:text-[7.5rem]"
       >
         {valueText}
       </motion.div>
-      <p className="mt-3 text-xl font-semibold text-white/70 sm:text-2xl md:text-3xl">
+      <p className="mt-3 text-base font-semibold uppercase tracking-[0.22em] text-white/60 sm:text-lg md:text-xl">
         {label}
       </p>
     </motion.div>
@@ -67,16 +67,6 @@ function AnimatedStat({ value, suffix, label, delay = 0 }) {
 
 export default function BlendedStatsSection() {
   const [mountNode, setMountNode] = useState(null);
-  const starDots = useMemo(
-    () => [
-      { left: "7%", top: "25%" },
-      { left: "32%", top: "9%" },
-      { left: "50%", top: "48%" },
-      { left: "68%", top: "18%" },
-      { left: "91%", top: "36%" },
-    ],
-    [],
-  );
 
   useEffect(() => {
     let timeoutId;
@@ -118,26 +108,15 @@ export default function BlendedStatsSection() {
           position: relative !important;
           overflow: hidden !important;
           border: none !important;
-          background: transparent !important;
+          background: #05070b !important;
           box-shadow: none !important;
         }
       `}</style>
 
-      <section className="relative overflow-hidden bg-transparent px-4 py-20 sm:px-6 lg:px-8">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(0,81,255,0.16),transparent_28%),radial-gradient(circle_at_5%_80%,rgba(0,81,255,0.08),transparent_30%),radial-gradient(circle_at_92%_15%,rgba(255,255,255,0.08),transparent_26%)]" />
-        {starDots.map((dot, index) => (
-          <motion.span
-            key={`${dot.left}-${dot.top}`}
-            className="pointer-events-none absolute h-1 w-1 rounded-full bg-white/70"
-            style={{ left: dot.left, top: dot.top }}
-            animate={{ opacity: [0.15, 0.9, 0.15], scale: [0.8, 1.35, 0.8] }}
-            transition={{ duration: 2.6 + index * 0.4, repeat: Infinity, ease: "easeInOut" }}
-          />
-        ))}
-
-        <div className="relative mx-auto grid max-w-7xl gap-12 md:grid-cols-3 md:gap-8">
+      <section className="relative overflow-hidden bg-[#05070b] px-4 py-16 sm:px-6 lg:px-8">
+        <div className="relative mx-auto grid max-w-6xl gap-10 md:grid-cols-3 md:gap-8">
           {stats.map((stat, index) => (
-            <AnimatedStat key={stat.label} {...stat} delay={index * 0.08} />
+            <AnimatedStat key={stat.label} {...stat} delay={index * 0.07} />
           ))}
         </div>
       </section>
