@@ -97,6 +97,19 @@ section:nth-of-type(2) > div {
   margin-top: 0 !important;
 }
 
+/* Testimonial heading: smaller and locked into two clean lines. */
+[data-mz-testimonial-carousel] h2 {
+  max-width: min(1180px, 94vw) !important;
+  font-size: clamp(3.6rem, 6.2vw, 6.8rem) !important;
+  line-height: 0.95 !important;
+  letter-spacing: -0.055em !important;
+}
+
+[data-mz-testimonial-carousel] h2 span {
+  display: block !important;
+  white-space: nowrap !important;
+}
+
 @media (min-width: 900px) {
   section:first-of-type h1 {
     --hero-title-size: clamp(3.2rem, 4.8vw, 5.25rem);
@@ -171,6 +184,11 @@ section:nth-of-type(2) > div {
     max-width: min(1060px, 94vw) !important;
     font-size: clamp(2.3rem, 3.9vw, 3.5rem) !important;
   }
+
+  [data-mz-testimonial-carousel] h2 {
+    font-size: clamp(3.1rem, 6vw, 5.2rem) !important;
+    max-width: min(980px, 94vw) !important;
+  }
 }
 
 @media (max-width: 899px) {
@@ -203,5 +221,14 @@ section:nth-of-type(2) > div {
 
   [data-mz-testimonial-carousel] > div {
     padding-top: 1.5rem !important;
+  }
+
+  [data-mz-testimonial-carousel] h2 {
+    font-size: clamp(2.8rem, 11vw, 4.2rem) !important;
+    line-height: 0.98 !important;
+  }
+
+  [data-mz-testimonial-carousel] h2 span {
+    white-space: normal !important;
   }
 }
