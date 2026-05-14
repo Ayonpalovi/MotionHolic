@@ -53,6 +53,27 @@ footer > div,
   margin-right: auto !important;
 }
 
+/* Reduce the huge space between the stats and testimonial sections without changing colors, fonts, or background. */
+[data-blended-stats-host] > section {
+  padding-top: clamp(3rem, 5vw, 5rem) !important;
+  padding-bottom: clamp(1.5rem, 2.5vw, 2.5rem) !important;
+  min-height: auto !important;
+}
+
+#testimonials[data-testimonial-override="true"] {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+[data-mz-testimonial-carousel] > div {
+  padding-top: clamp(1.75rem, 3vw, 3rem) !important;
+  padding-bottom: clamp(4rem, 7vw, 6rem) !important;
+}
+
+[data-mz-testimonial-carousel] p:first-child {
+  margin-top: 0 !important;
+}
+
 @media (min-width: 900px) {
   section:first-of-type h1 {
     --hero-title-size: clamp(3.2rem, 4.8vw, 5.25rem);
@@ -140,5 +161,14 @@ footer > div,
     font-size: clamp(2.15rem, 9vw, 3.7rem) !important;
     line-height: 1.08 !important;
     letter-spacing: -0.055em !important;
+  }
+
+  [data-blended-stats-host] > section {
+    padding-top: 3rem !important;
+    padding-bottom: 1.25rem !important;
+  }
+
+  [data-mz-testimonial-carousel] > div {
+    padding-top: 1.5rem !important;
   }
 }
