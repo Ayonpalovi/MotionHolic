@@ -56,12 +56,29 @@ section:first-of-type h1 {
   section:first-of-type h1 span:nth-of-type(4) {
     color: #0051FF !important;
   }
+
+  /* Make the scroll-reveal headline smaller so it sits in about 3 clean lines. */
+  section:nth-of-type(2) .mx-auto.max-w-5xl.text-3xl {
+    max-width: min(1360px, 94vw) !important;
+    font-size: clamp(2.45rem, 3.7vw, 4rem) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.055em !important;
+  }
+
+  section:nth-of-type(2) .mx-auto.max-w-5xl.text-3xl span {
+    margin-right: 0.2em !important;
+  }
 }
 
 @media (min-width: 900px) and (max-width: 1180px) {
   section:first-of-type h1 {
     --hero-title-size: clamp(3rem, 4.5vw, 4.5rem);
     max-width: min(980px, 94vw) !important;
+  }
+
+  section:nth-of-type(2) .mx-auto.max-w-5xl.text-3xl {
+    max-width: min(1060px, 94vw) !important;
+    font-size: clamp(2.3rem, 3.9vw, 3.5rem) !important;
   }
 }
 
@@ -70,5 +87,11 @@ section:first-of-type h1 {
     font-size: clamp(2.8rem, 12vw, 4.6rem) !important;
     line-height: 0.94 !important;
     letter-spacing: -0.06em !important;
+  }
+
+  section:nth-of-type(2) .mx-auto.max-w-5xl.text-3xl {
+    font-size: clamp(2.15rem, 9vw, 3.7rem) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.055em !important;
   }
 }
