@@ -1,0 +1,41 @@
+/* Tighten the Our Process section spacing without changing color, font, or background. */
+[data-os-process-host] > section {
+  padding-top: clamp(2rem, 3.5vw, 3.25rem) !important;
+  padding-bottom: clamp(3rem, 5vw, 5rem) !important;
+  min-height: auto !important;
+}
+
+[data-os-process-host] > section > div:nth-of-type(2) {
+  margin-bottom: clamp(0.75rem, 1.5vw, 1.5rem) !important;
+}
+
+[data-os-process-host] > section > div:nth-of-type(3) {
+  margin-top: clamp(0.75rem, 1.5vw, 1.5rem) !important;
+}
+
+[data-os-process-host] h2 {
+  max-width: min(980px, 92vw) !important;
+  font-size: clamp(2.8rem, 4.4vw, 5rem) !important;
+  line-height: 0.92 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+[data-os-process-host] h2 span {
+  padding-bottom: 0 !important;
+}
+
+[data-os-process-host] [class*="space-y-10"] {
+  row-gap: clamp(2.25rem, 4vw, 3.5rem) !important;
+}
+
+@media (max-width: 899px) {
+  [data-os-process-host] > section {
+    padding-top: 1.5rem !important;
+  }
+
+  [data-os-process-host] h2 {
+    font-size: clamp(2.25rem, 9vw, 3.4rem) !important;
+    line-height: 0.96 !important;
+  }
+}
