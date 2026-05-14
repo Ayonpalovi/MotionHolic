@@ -6,6 +6,7 @@ import MZTestimonialCarousel from './components/MZTestimonialCarousel.jsx'
 import BlendedStatsSection from './components/BlendedStatsSection.jsx'
 import OSProcessSection from './components/OSProcessSection.jsx'
 import './index.css'
+import './hero-fix.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
