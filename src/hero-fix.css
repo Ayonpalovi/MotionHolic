@@ -1,6 +1,6 @@
 /* Hero headline sizing fix: keeps the main message premium but compact enough for 2 desktop lines. */
 section:first-of-type h1 {
-  max-width: min(1080px, 92vw) !important;
+  max-width: min(1180px, 94vw) !important;
   margin-left: auto !important;
   margin-right: auto !important;
   text-align: center !important;
@@ -8,16 +8,16 @@ section:first-of-type h1 {
 
 @media (min-width: 900px) {
   section:first-of-type h1 {
-    font-size: clamp(4.2rem, 6.6vw, 6.9rem) !important;
-    line-height: 0.94 !important;
-    letter-spacing: -0.06em !important;
+    --hero-title-size: clamp(3.2rem, 4.8vw, 5.25rem);
+    font-size: var(--hero-title-size) !important;
+    line-height: 0.98 !important;
+    letter-spacing: -0.055em !important;
   }
 
-  /* The original title was forced into 4 lines with <br /> tags.
-     Keep only the middle break so it becomes:
-     From Frame to Frame,
+  /* Desktop reference layout:
+     From Frame To Frame
      We Grow Your Name
-  */
+     Background stays untouched. */
   section:first-of-type h1 br {
     display: none !important;
   }
@@ -30,22 +30,45 @@ section:first-of-type h1 {
     display: inline !important;
   }
 
-  section:first-of-type h1 span:not(:last-child)::after {
+  section:first-of-type h1 span:nth-of-type(1)::after {
     content: " ";
+  }
+
+  /* Replace the comma version visually with the cleaner reference text. */
+  section:first-of-type h1 span:nth-of-type(2) {
+    font-size: 0 !important;
+  }
+
+  section:first-of-type h1 span:nth-of-type(2)::after {
+    content: "To Frame";
+    font-size: var(--hero-title-size) !important;
+    color: #ffffff !important;
+  }
+
+  section:first-of-type h1 span:nth-of-type(3) {
+    color: #ffffff !important;
+  }
+
+  section:first-of-type h1 span:nth-of-type(3)::after {
+    content: " ";
+  }
+
+  section:first-of-type h1 span:nth-of-type(4) {
+    color: #0051FF !important;
   }
 }
 
 @media (min-width: 900px) and (max-width: 1180px) {
   section:first-of-type h1 {
-    font-size: clamp(3.7rem, 6.2vw, 5.8rem) !important;
-    max-width: min(920px, 92vw) !important;
+    --hero-title-size: clamp(3rem, 4.5vw, 4.5rem);
+    max-width: min(980px, 94vw) !important;
   }
 }
 
 @media (max-width: 899px) {
   section:first-of-type h1 {
-    font-size: clamp(3rem, 13vw, 5rem) !important;
-    line-height: 0.92 !important;
+    font-size: clamp(2.8rem, 12vw, 4.6rem) !important;
+    line-height: 0.94 !important;
     letter-spacing: -0.06em !important;
   }
 }
