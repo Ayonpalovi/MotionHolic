@@ -6,6 +6,53 @@ section:first-of-type h1 {
   text-align: center !important;
 }
 
+/* Global section alignment fix: every major section and injected portal section stays centered. */
+main,
+section,
+footer {
+  width: 100% !important;
+}
+
+section,
+footer {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+section > div,
+header > div,
+footer > div,
+[data-blended-stats-host],
+[data-mz-testimonial-carousel],
+[data-os-process-host] {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+[data-blended-stats-host],
+[data-mz-testimonial-carousel],
+[data-os-process-host] {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block !important;
+}
+
+[data-blended-stats-host] > section,
+[data-mz-testimonial-carousel] > div,
+[data-os-process-host] > section {
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+[data-blended-stats-host] > section > div,
+[data-mz-testimonial-carousel] > div,
+[data-os-process-host] > section > div {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 @media (min-width: 900px) {
   section:first-of-type h1 {
     --hero-title-size: clamp(3.2rem, 4.8vw, 5.25rem);
