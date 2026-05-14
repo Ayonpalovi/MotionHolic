@@ -1,0 +1,40 @@
+/* Make testimonial heading smaller and closer without changing color, background, or font family. */
+#testimonials[data-testimonial-override="true"] [data-mz-testimonial-carousel] h2,
+[data-mz-testimonial-carousel] h2 {
+  max-width: min(920px, 92vw) !important;
+  margin-top: 1rem !important;
+  font-size: clamp(2.6rem, 4.15vw, 4.5rem) !important;
+  line-height: 0.82 !important;
+  letter-spacing: -0.06em !important;
+}
+
+#testimonials[data-testimonial-override="true"] [data-mz-testimonial-carousel] h2 span,
+[data-mz-testimonial-carousel] h2 span {
+  display: block !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+@media (min-width: 900px) and (max-width: 1180px) {
+  #testimonials[data-testimonial-override="true"] [data-mz-testimonial-carousel] h2,
+  [data-mz-testimonial-carousel] h2 {
+    max-width: min(780px, 92vw) !important;
+    font-size: clamp(2.35rem, 4.1vw, 3.8rem) !important;
+    line-height: 0.84 !important;
+  }
+}
+
+@media (max-width: 899px) {
+  #testimonials[data-testimonial-override="true"] [data-mz-testimonial-carousel] h2,
+  [data-mz-testimonial-carousel] h2 {
+    max-width: min(620px, 92vw) !important;
+    font-size: clamp(2.1rem, 8vw, 3.2rem) !important;
+    line-height: 0.9 !important;
+  }
+
+  #testimonials[data-testimonial-override="true"] [data-mz-testimonial-carousel] h2 span,
+  [data-mz-testimonial-carousel] h2 span {
+    white-space: normal !important;
+  }
+}
