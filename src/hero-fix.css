@@ -1,0 +1,51 @@
+/* Hero headline sizing fix: keeps the main message premium but compact enough for 2 desktop lines. */
+section:first-of-type h1 {
+  max-width: min(1080px, 92vw) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+@media (min-width: 900px) {
+  section:first-of-type h1 {
+    font-size: clamp(4.2rem, 6.6vw, 6.9rem) !important;
+    line-height: 0.94 !important;
+    letter-spacing: -0.06em !important;
+  }
+
+  /* The original title was forced into 4 lines with <br /> tags.
+     Keep only the middle break so it becomes:
+     From Frame to Frame,
+     We Grow Your Name
+  */
+  section:first-of-type h1 br {
+    display: none !important;
+  }
+
+  section:first-of-type h1 > br:nth-of-type(2) {
+    display: block !important;
+  }
+
+  section:first-of-type h1 span {
+    display: inline !important;
+  }
+
+  section:first-of-type h1 span:not(:last-child)::after {
+    content: " ";
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1180px) {
+  section:first-of-type h1 {
+    font-size: clamp(3.7rem, 6.2vw, 5.8rem) !important;
+    max-width: min(920px, 92vw) !important;
+  }
+}
+
+@media (max-width: 899px) {
+  section:first-of-type h1 {
+    font-size: clamp(3rem, 13vw, 5rem) !important;
+    line-height: 0.92 !important;
+    letter-spacing: -0.06em !important;
+  }
+}
