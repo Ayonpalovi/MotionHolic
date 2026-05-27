@@ -54,7 +54,7 @@ function ProcessBadge() {
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: false, amount: 0.6 }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-      className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/60 backdrop-blur-xl"
+      className="mx-auto mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/60 backdrop-blur-xl"
     >
       <span className="text-[#0051FF]">✦</span>
       <span>Our Process</span>
@@ -69,7 +69,7 @@ function AnimatedHeading() {
   ];
 
   return (
-    <h2 className="mx-auto max-w-5xl text-center text-4xl font-semibold leading-[0.98] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+    <h2 className="mx-auto max-w-6xl text-center text-4xl font-semibold leading-[0.98] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
       {lines.map((line, lineIndex) => (
         <span key={line.text} className="block overflow-hidden pb-1">
           <motion.span
@@ -208,7 +208,7 @@ export default function OSProcessSection() {
           <AnimatedHeading />
         </div>
 
-        <div ref={timelineRef} className="relative mx-auto mt-5 max-w-7xl space-y-10 md:space-y-14">
+        <div ref={timelineRef} className="relative mx-auto mt-2 max-w-7xl space-y-8 md:space-y-10">
           <div className="absolute left-1/2 top-14 hidden h-[calc(100%-3.5rem)] w-px -translate-x-1/2 bg-white/35 md:block" />
           <motion.div
             style={{ height: progressHeight }}
