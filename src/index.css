@@ -130,9 +130,9 @@ header button:hover { transform: translateY(-1px); }
 
 h1, h2, h3, p, a, button, span, li { letter-spacing: -0.015em; }
 h1, h2 { text-wrap: balance; }
-h1 { font-size: clamp(3.8rem, 10vw, 9.5rem) !important; line-height: 0.86 !important; letter-spacing: -0.075em !important; filter: drop-shadow(0 22px 70px rgba(0, 81, 255, 0.14)); }
-h2 { font-size: clamp(2.8rem, 7vw, 6.8rem) !important; line-height: 0.94 !important; letter-spacing: -0.055em !important; }
-h3 { letter-spacing: -0.035em !important; }
+h1 { letter-spacing: -0.04em !important; filter: drop-shadow(0 22px 70px rgba(0, 81, 255, 0.14)); }
+h2 { letter-spacing: -0.03em !important; }
+h3 { letter-spacing: -0.025em !important; }
 p { line-height: 1.78 !important; }
 button, a[href*="calendly"], a[href^="#"] { will-change: transform; }
 
@@ -250,32 +250,11 @@ footer { background: radial-gradient(circle at 50% 0%, rgba(0, 81, 255, 0.08), t
 [class*="rounded-full"][class*="border"]::after { content: ""; position: absolute; inset: 1px; border-radius: inherit; pointer-events: none; background: linear-gradient(120deg, transparent, rgba(255,255,255,0.12), transparent); opacity: 0; transition: opacity 240ms ease; }
 [class*="rounded-full"][class*="border"]:hover::after { opacity: 1; }
 
-/* Zero out padding on portal-wrapped outer containers to avoid double-spacing. */
-[data-blended-stats-section="true"],
-#process[data-os-process-section="true"] {
-  padding-block: 0 !important;
-}
-
-#testimonials[data-testimonial-override="true"] {
-  padding-block: 0 !important;
-}
-
-@media (min-width: 768px) {
-  section { padding-block: clamp(4rem, 6vw, 7rem) !important; }
-  section:first-of-type { padding-top: clamp(3rem, 4vw, 5rem) !important; }
-}
 
 @media (max-width: 767px) {
-  :root { --process-line-start: 48px; }
   body::before { background: radial-gradient(circle at 50% 0%, rgba(0, 81, 255, 0.20), transparent 24rem), radial-gradient(circle at 85% 35%, rgba(0, 81, 255, 0.10), transparent 22rem), radial-gradient(circle at 20% 72%, rgba(0, 81, 255, 0.08), transparent 24rem), linear-gradient(180deg, #050505 0%, #06070a 48%, #050505 100%); }
   body::after { opacity: 0.20; background-size: 185px 185px, 285px 285px, 380px 380px; animation-duration: 56s; }
   section > div, header > div, footer > div { width: min(100% - 24px, 100%) !important; }
-  h1 { font-size: clamp(3.2rem, 18vw, 5.4rem) !important; letter-spacing: -0.065em !important; }
-  h2 { font-size: clamp(2.3rem, 12vw, 4.4rem) !important; }
-  section { padding-block: 3.5rem !important; }
-  #process > div > div:first-child { margin-bottom: 1.5rem !important; }
-  #process [class*="absolute"][class*="left-1/2"][class*="w-px"] { left: 1.75rem !important; transform: none; }
-  #process [class*="grid"][class*="md:grid-cols"]:first-of-type::before { left: 1.75rem; transform: none; }
   [class*="rounded-[32px]"], [class*="rounded-[28px]"], [class*="rounded-[24px]"] { border-radius: 22px !important; }
 }
 
