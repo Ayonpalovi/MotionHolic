@@ -1,5 +1,5 @@
-import React, { useMemo, useRef, useState } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import React, { useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 /* ─── Constants ──────────────────────────────────────────────────────────── */
 const calendlyLink = "https://calendly.com/ayonpalovi10/video-editing-service";
@@ -317,6 +317,172 @@ function TestimonialVideoCard({ src, index, playingIndex, setPlayingIndex }) {
   );
 }
 
+/* ─── Wavy Process Diagram ───────────────────────────────────────────────── */
+
+/** Split a string into lines no longer than maxChars, capped at maxLines. */
+function splitSvgText(text, maxChars = 23, maxLines = 3) {
+  const words = text.split(" ");
+  const lines = [];
+  let cur = "";
+  for (const word of words) {
+    if (lines.length >= maxLines) break;
+    const next = cur ? `${cur} ${word}` : word;
+    if (next.length <= maxChars) {
+      cur = next;
+    } else {
+      if (cur) lines.push(cur);
+      cur = word;
+    }
+  }
+  if (cur && lines.length < maxLines) lines.push(cur);
+  return lines;
+}
+
+function WavyProcessDiagram() {
+  const vw = 1000;
+  const vh = 360;
+  const FONT = "Geist, Inter, ui-sans-serif, system-ui, sans-serif";
+
+  /* Icon center positions in SVG coordinate space.
+     Lower y = higher on screen.  Pattern: low → high → mid → highest */
+  const pts = [
+    { x: 122, y: 178 },
+    { x: 360, y: 92  },
+    { x: 618, y: 156 },
+    { x: 872, y: 70  },
+  ];
+
+  /* Smooth cubic bezier: mid-point control handles keep curves natural */
+  const pathD = pts.reduce((acc, pt, i) => {
+    if (i === 0) return `M ${pt.x} ${pt.y}`;
+    const prev = pts[i - 1];
+    const mx = (prev.x + pt.x) / 2;
+    return `${acc} C ${mx} ${prev.y} ${mx} ${pt.y} ${pt.x} ${pt.y}`;
+  }, "");
+
+  return (
+    <motion.svg
+      viewBox={`0 0 ${vw} ${vh}`}
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-full"
+      overflow="visible"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: false, amount: 0.2 }}
+      transition={{ duration: 0.7 }}
+    >
+      <defs>
+        <filter id="wavy-glow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="5" result="b" />
+          <feMerge>
+            <feMergeNode in="b" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
+      {/* Wide soft glow behind the line */}
+      <path
+        d={pathD}
+        fill="none"
+        stroke="rgba(0,81,255,0.12)"
+        strokeWidth={22}
+        strokeLinecap="round"
+      />
+
+      {/* Animated draw-on path */}
+      <motion.path
+        d={pathD}
+        fill="none"
+        stroke="rgba(0,81,255,0.68)"
+        strokeWidth={2.2}
+        strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        whileInView={{ pathLength: 1 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 2.2, ease: [0.4, 0, 0.2, 1] }}
+      />
+
+      {pts.map((pt, i) => {
+        const step = processSteps[i];
+        const titleLines = splitSvgText(step.title, 20, 2);
+        const descLines  = splitSvgText(step.desc,  24, 3);
+        const textY = pt.y + 44; // start of title text, below icon
+
+        return (
+          <motion.g
+            key={step.n}
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.65, delay: 0.45 + i * 0.25, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* Large ghost step number */}
+            <text
+              x={pt.x + 16} y={pt.y + 82}
+              fill="rgba(255,255,255,0.042)"
+              fontSize={92} fontWeight={900}
+              fontFamily={FONT}
+            >
+              {i + 1}
+            </text>
+
+            {/* Icon box — filled bg */}
+            <rect
+              x={pt.x - 26} y={pt.y - 26}
+              width={52} height={52} rx={12}
+              fill="rgba(0,45,130,0.38)"
+            />
+            {/* Icon box — glowing border */}
+            <rect
+              x={pt.x - 26} y={pt.y - 26}
+              width={52} height={52} rx={12}
+              fill="none"
+              stroke="rgba(0,100,255,0.55)"
+              strokeWidth={1.3}
+              filter="url(#wavy-glow)"
+            />
+
+            {/* Bar-chart icon (3 ascending bars) */}
+            <rect x={pt.x - 11} y={pt.y + 4}  width={6} height={9}  rx={1.5} fill="rgba(130,180,255,0.82)" />
+            <rect x={pt.x - 3}  y={pt.y - 3}  width={6} height={16} rx={1.5} fill="rgba(60,130,255,0.95)" />
+            <rect x={pt.x + 5}  y={pt.y - 9}  width={6} height={22} rx={1.5} fill="#0051FF" />
+
+            {/* Title lines */}
+            {titleLines.map((line, li) => (
+              <text
+                key={li}
+                x={pt.x} y={textY + li * 17}
+                fill="rgba(255,255,255,0.93)"
+                fontSize={13.5} fontWeight={600}
+                textAnchor="middle"
+                fontFamily={FONT}
+              >
+                {line}
+              </text>
+            ))}
+
+            {/* Description lines */}
+            {descLines.map((line, li) => (
+              <text
+                key={li}
+                x={pt.x}
+                y={textY + titleLines.length * 17 + 14 + li * 15}
+                fill="rgba(255,255,255,0.44)"
+                fontSize={11}
+                textAnchor="middle"
+                fontFamily={FONT}
+              >
+                {line}
+              </text>
+            ))}
+          </motion.g>
+        );
+      })}
+    </motion.svg>
+  );
+}
+
 /* ─── FAQAccordion ───────────────────────────────────────────────────────── */
 function FAQAccordion() {
   const [openIndex, setOpenIndex] = useState(0);
@@ -616,10 +782,11 @@ export default function MotionHolicPortfolio() {
           </div>
         </section>
 
-        {/* ── PROCESS — 01–04 horizontal grid ──────────────────────────── */}
+        {/* ── PROCESS — wavy SVG path diagram ──────────────────────────── */}
         <section id="process" className="px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <div className="mb-14 text-center">
+            {/* Heading — left-aligned like reference image */}
+            <div className="mb-14 max-w-xl">
               <SectionBadge>Our Process</SectionBadge>
               <h2 className="text-3xl font-semibold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-[2.75rem]">
                 Our strategy to get{" "}
@@ -627,17 +794,23 @@ export default function MotionHolicPortfolio() {
               </h2>
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {/* ── Wavy diagram — desktop (lg+) only ── */}
+            <div className="hidden lg:block">
+              <WavyProcessDiagram />
+            </div>
+
+            {/* ── Mobile / tablet fallback — 2-column grid ── */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:hidden">
               {processSteps.map((step, i) => (
                 <motion.div
                   key={step.n}
-                  initial={{ opacity: 0, y: 28 }}
+                  initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, amount: 0.25 }}
-                  transition={{ duration: 0.55, delay: i * 0.1 }}
+                  transition={{ duration: 0.55, delay: i * 0.08 }}
                   className="relative rounded-[28px] border border-white/10 bg-white/5 p-8 shadow-[0_16px_60px_rgba(0,0,0,0.2)] backdrop-blur-xl"
                 >
-                  <p className="mb-5 font-black leading-none" style={{ fontSize: "3.5rem", color: "rgba(0,81,255,0.18)" }}>
+                  <p className="mb-5 font-black leading-none" style={{ fontSize: "3.5rem", color: "rgba(0,81,255,0.22)" }}>
                     {step.n}
                   </p>
                   <h3 className="mb-3 text-lg font-semibold capitalize text-white">{step.title}</h3>
@@ -646,7 +819,7 @@ export default function MotionHolicPortfolio() {
               ))}
             </div>
 
-            <div className="mt-12 flex justify-center">
+            <div className="mt-14 flex justify-center">
               <button
                 onClick={openCalendly}
                 className="group relative overflow-hidden rounded-full bg-[#0051FF] px-8 py-4 text-sm font-semibold text-white shadow-[0_0_35px_rgba(0,81,255,0.35)] transition hover:scale-[1.03] hover:shadow-[0_0_45px_rgba(0,81,255,0.55)]"
