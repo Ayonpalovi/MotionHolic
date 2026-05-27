@@ -250,9 +250,19 @@ footer { background: radial-gradient(circle at 50% 0%, rgba(0, 81, 255, 0.08), t
 [class*="rounded-full"][class*="border"]::after { content: ""; position: absolute; inset: 1px; border-radius: inherit; pointer-events: none; background: linear-gradient(120deg, transparent, rgba(255,255,255,0.12), transparent); opacity: 0; transition: opacity 240ms ease; }
 [class*="rounded-full"][class*="border"]:hover::after { opacity: 1; }
 
+/* Zero out padding on portal-wrapped outer containers to avoid double-spacing. */
+[data-blended-stats-section="true"],
+#process[data-os-process-section="true"] {
+  padding-block: 0 !important;
+}
+
+#testimonials[data-testimonial-override="true"] {
+  padding-block: 0 !important;
+}
+
 @media (min-width: 768px) {
-  section { padding-block: clamp(6rem, 10vw, 10rem) !important; }
-  section:first-of-type { padding-top: clamp(5rem, 8vw, 8rem) !important; }
+  section { padding-block: clamp(4rem, 6vw, 7rem) !important; }
+  section:first-of-type { padding-top: clamp(3rem, 4vw, 5rem) !important; }
 }
 
 @media (max-width: 767px) {
@@ -262,7 +272,7 @@ footer { background: radial-gradient(circle at 50% 0%, rgba(0, 81, 255, 0.08), t
   section > div, header > div, footer > div { width: min(100% - 24px, 100%) !important; }
   h1 { font-size: clamp(3.2rem, 18vw, 5.4rem) !important; letter-spacing: -0.065em !important; }
   h2 { font-size: clamp(2.3rem, 12vw, 4.4rem) !important; }
-  section { padding-block: 5rem !important; }
+  section { padding-block: 3.5rem !important; }
   #process > div > div:first-child { margin-bottom: 1.5rem !important; }
   #process [class*="absolute"][class*="left-1/2"][class*="w-px"] { left: 1.75rem !important; transform: none; }
   #process [class*="grid"][class*="md:grid-cols"]:first-of-type::before { left: 1.75rem; transform: none; }

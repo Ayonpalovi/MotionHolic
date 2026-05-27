@@ -196,11 +196,11 @@ export default function OSProcessSection() {
         #process[data-os-process-section="true"] {
           position: relative !important;
           overflow: hidden !important;
-          background: #05070b !important;
+          background: transparent !important;
         }
       `}</style>
 
-      <section className="relative overflow-hidden bg-[#05070b] px-4 py-12 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden bg-transparent px-4 py-12 sm:px-6 lg:px-8">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_15%,rgba(0,81,255,0.16),transparent_28%),radial-gradient(circle_at_15%_70%,rgba(0,81,255,0.08),transparent_28%),radial-gradient(circle_at_85%_65%,rgba(0,81,255,0.08),transparent_28%)]" />
 
         <div className="relative mx-auto max-w-7xl text-center">

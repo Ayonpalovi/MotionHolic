@@ -75,11 +75,11 @@ section:nth-of-type(2) > div {
   padding-top: 0 !important;
 }
 
-/* Reduce the huge space between the stats and testimonial sections without changing colors, fonts, or background. */
+/* Stats section inner padding — outer container is zeroed out, so this is the only spacing around stats. */
 [data-blended-stats-host] > section {
   margin-top: 0 !important;
-  padding-top: clamp(0.75rem, 1.6vw, 1.5rem) !important;
-  padding-bottom: clamp(1.5rem, 2.5vw, 2.5rem) !important;
+  padding-top: clamp(3rem, 5vw, 5rem) !important;
+  padding-bottom: clamp(3rem, 5vw, 5rem) !important;
   min-height: auto !important;
 }
 

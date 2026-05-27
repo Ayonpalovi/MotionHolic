@@ -122,9 +122,9 @@ export default function MZTestimonialCarousel() {
         </p>
 
         <h2 className="mx-auto mt-5 max-w-3xl text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl">
-          <span className="text-white/45">Hear What They&apos;re</span>
+          <span className="text-white">Hear What They&apos;re</span>
           <br />
-          <span>Saying About Us</span>
+          <span className="text-[#0051FF]">Saying About Us</span>
         </h2>
 
         <div className="relative mx-auto mt-12 flex min-h-[560px] max-w-5xl items-center justify-center">

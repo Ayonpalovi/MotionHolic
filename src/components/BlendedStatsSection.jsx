@@ -108,12 +108,12 @@ export default function BlendedStatsSection() {
           position: relative !important;
           overflow: hidden !important;
           border: none !important;
-          background: #05070b !important;
+          background: transparent !important;
           box-shadow: none !important;
         }
       `}</style>
 
-      <section className="relative overflow-hidden bg-[#05070b] px-4 py-14 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden bg-transparent px-4 py-14 sm:px-6 lg:px-8">
         <div className="relative mx-auto grid max-w-5xl gap-9 md:grid-cols-3 md:gap-7">
           {stats.map((stat, index) => (
             <AnimatedStat key={stat.label} {...stat} delay={index * 0.07} />
