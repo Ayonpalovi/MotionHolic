@@ -23,8 +23,9 @@
 
 html {
   min-height: 100%;
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* Lenis handles smooth scrolling */
   background: #050505;
+  -webkit-overflow-scrolling: touch; /* iOS momentum scroll */
 }
 
 body, #root {
