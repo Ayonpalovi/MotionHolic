@@ -549,7 +549,7 @@ export default function MotionHolicPortfolio() {
 
       {/* ── HEADER ───────────────────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 px-4 pt-4 sm:px-6">
-        <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-white/10 bg-[#05070b]/85 shadow-[0_8px_40px_rgba(0,0,0,0.45)] backdrop-blur-2xl">
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-white/[0.12] bg-white/[0.06] shadow-[0_4px_32px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-2xl">
           {/* Main nav row */}
           <div className="flex items-center justify-between px-5 py-3.5">
             <a href="#top" className="flex items-center gap-3">
