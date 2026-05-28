@@ -548,71 +548,75 @@ export default function MotionHolicPortfolio() {
       <div className="fixed inset-0 -z-10 opacity-[0.08] [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:90px_90px]" />
 
       {/* ── HEADER ───────────────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-50 border-b border-white/8 bg-[#05070b]/70 backdrop-blur-2xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <a href="#top" className="flex items-center gap-3">
-            <img src="/logo.avif" alt="MotionHolic logo" className="h-11 w-11 object-contain" />
-            <p className="font-semibold tracking-wide">MotionHolic</p>
-          </a>
+      <header className="sticky top-0 z-50 px-4 pt-4 sm:px-6">
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-white/10 bg-[#05070b]/85 shadow-[0_8px_40px_rgba(0,0,0,0.45)] backdrop-blur-2xl">
+          {/* Main nav row */}
+          <div className="flex items-center justify-between px-5 py-3.5">
+            <a href="#top" className="flex items-center gap-3">
+              <img src="/logo.avif" alt="MotionHolic logo" className="h-10 w-10 object-contain" />
+              <p className="font-semibold tracking-wide">MotionHolic</p>
+            </a>
 
-          <nav className="hidden items-center gap-8 lg:flex">
-            {navItems.map((item) => (
-              <a key={item.label} href={item.href} className="text-sm text-white/70 transition hover:text-white">
-                {item.label}
-              </a>
-            ))}
-          </nav>
+            <nav className="hidden items-center gap-8 lg:flex">
+              {navItems.map((item) => (
+                <a key={item.label} href={item.href} className="text-sm text-white/70 transition hover:text-white">
+                  {item.label}
+                </a>
+              ))}
+            </nav>
 
-          <div className="hidden lg:block">
+            <div className="hidden lg:block">
+              <button
+                onClick={openCalendly}
+                className="rounded-full border border-[#0051FF]/30 bg-[#0051FF] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_0_28px_rgba(0,81,255,0.35)] transition hover:scale-[1.03] hover:shadow-[0_0_40px_rgba(0,81,255,0.55)]"
+                type="button"
+              >
+                Book a call
+              </button>
+            </div>
+
             <button
-              onClick={openCalendly}
-              className="rounded-full border border-[#0051FF]/30 bg-[#0051FF] px-5 py-3 text-sm font-semibold text-white shadow-[0_0_32px_rgba(0,81,255,0.35)] transition hover:scale-[1.03] hover:shadow-[0_0_45px_rgba(0,81,255,0.55)]"
+              onClick={() => setMenuOpen((s) => !s)}
+              className="lg:hidden"
               type="button"
+              aria-label="Toggle menu"
             >
-              Book a call
+              {menuOpen ? <XIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
             </button>
           </div>
 
-          <button
-            onClick={() => setMenuOpen((s) => !s)}
-            className="lg:hidden"
-            type="button"
-            aria-label="Toggle menu"
-          >
-            {menuOpen ? <XIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
-          </button>
-        </div>
-
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="overflow-hidden border-t border-white/8 lg:hidden"
-            >
-              <div className="space-y-4 px-4 py-5 sm:px-6">
-                {navItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="block text-white/80"
-                    onClick={() => setMenuOpen(false)}
+          {/* Mobile dropdown — stays inside the island */}
+          <AnimatePresence>
+            {menuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="overflow-hidden border-t border-white/8 lg:hidden"
+              >
+                <div className="space-y-4 px-5 py-5">
+                  {navItems.map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className="block text-white/80"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                  <button
+                    onClick={openCalendly}
+                    className="w-full rounded-full bg-[#0051FF] px-5 py-3 font-semibold text-white"
+                    type="button"
                   >
-                    {item.label}
-                  </a>
-                ))}
-                <button
-                  onClick={openCalendly}
-                  className="w-full rounded-full bg-[#0051FF] px-5 py-3 font-semibold text-white"
-                  type="button"
-                >
-                  Book a call
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                    Book a call
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </header>
 
       <main id="top">
