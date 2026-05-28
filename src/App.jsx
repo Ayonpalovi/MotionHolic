@@ -343,6 +343,45 @@ function WavyProcessDiagram() {
   const vh = 360;
   const FONT = "Geist, Inter, ui-sans-serif, system-ui, sans-serif";
 
+  /* Step-specific icons — each receives the icon center (cx, cy) */
+  const stepIcons = [
+    // 01 Drop Your Footage — cloud upload
+    (cx, cy) => (
+      <g transform={`translate(${cx},${cy})`} fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M -7 1 Q -10 1 -10 -2 Q -10 -7 -5 -7 Q -4 -11 0 -11 Q 5 -11 6 -7 Q 10 -7 10 -3 Q 10 1 7 1" stroke="rgba(130,180,255,0.9)" strokeWidth="1.6" />
+        <line x1="0" y1="9" x2="0" y2="2" stroke="#0051FF" strokeWidth="1.9" />
+        <polyline points="-4,6 0,1 4,6" stroke="#0051FF" strokeWidth="1.9" />
+      </g>
+    ),
+    // 02 Editing the Video — scissors
+    (cx, cy) => (
+      <g transform={`translate(${cx},${cy})`} fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="-5" cy="7" r="3.2" stroke="#0051FF" strokeWidth="1.6" />
+        <circle cx="5"  cy="7" r="3.2" stroke="#0051FF" strokeWidth="1.6" />
+        <line x1="-2.5" y1="4.2" x2="8"  y2="-9" stroke="rgba(130,180,255,0.9)" strokeWidth="1.6" />
+        <line x1="2.5"  y1="4.2" x2="-8" y2="-9" stroke="rgba(130,180,255,0.9)" strokeWidth="1.6" />
+      </g>
+    ),
+    // 03 Feedback? Easy — chat bubble
+    (cx, cy) => (
+      <g transform={`translate(${cx},${cy})`} fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M -9 -8 Q -9 -12 -5 -12 L 5 -12 Q 9 -12 9 -8 L 9 0 Q 9 4 5 4 L 1 4 L -2 8 L -2 4 L -5 4 Q -9 4 -9 0 Z" stroke="#0051FF" strokeWidth="1.6" />
+        <line x1="-5" y1="-7" x2="5" y2="-7" stroke="rgba(130,180,255,0.7)" strokeWidth="1.3" />
+        <line x1="-5" y1="-3" x2="2" y2="-3" stroke="rgba(130,180,255,0.7)" strokeWidth="1.3" />
+      </g>
+    ),
+    // 04 Upload & Grow — rocket
+    (cx, cy) => (
+      <g transform={`translate(${cx},${cy})`} fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M 0 -11 Q 7 -9 7 -2 L 7 4 Q 0 7 -7 4 L -7 -2 Q -7 -9 0 -11" stroke="#0051FF" strokeWidth="1.6" />
+        <circle cx="0" cy="-3" r="2.4" stroke="rgba(130,180,255,0.9)" strokeWidth="1.4" />
+        <path d="M 7 1 L 10.5 5.5 L 6 4"   stroke="rgba(130,180,255,0.75)" strokeWidth="1.4" />
+        <path d="M -7 1 L -10.5 5.5 L -6 4" stroke="rgba(130,180,255,0.75)" strokeWidth="1.4" />
+        <path d="M -2.5 7 Q 0 11.5 2.5 7" stroke="rgba(255,140,60,0.92)" strokeWidth="1.7" />
+      </g>
+    ),
+  ];
+
   /* Icon center positions in SVG coordinate space.
      Lower y = higher on screen.  Pattern: low → high → mid → highest */
   const pts = [
@@ -443,10 +482,8 @@ function WavyProcessDiagram() {
               filter="url(#wavy-glow)"
             />
 
-            {/* Bar-chart icon (3 ascending bars) */}
-            <rect x={pt.x - 11} y={pt.y + 4}  width={6} height={9}  rx={1.5} fill="rgba(130,180,255,0.82)" />
-            <rect x={pt.x - 3}  y={pt.y - 3}  width={6} height={16} rx={1.5} fill="rgba(60,130,255,0.95)" />
-            <rect x={pt.x + 5}  y={pt.y - 9}  width={6} height={22} rx={1.5} fill="#0051FF" />
+            {/* Step-specific icon */}
+            {stepIcons[i](pt.x, pt.y)}
 
             {/* Title lines */}
             {titleLines.map((line, li) => (
@@ -789,8 +826,8 @@ export default function MotionHolicPortfolio() {
         {/* ── PROCESS — wavy SVG path diagram ──────────────────────────── */}
         <section id="process" className="px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            {/* Heading — left-aligned like reference image */}
-            <div className="mb-14 max-w-xl">
+            {/* Heading — centered */}
+            <div className="mb-14 text-center">
               <SectionBadge>Our Process</SectionBadge>
               <h2 className="text-3xl font-semibold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-[2.75rem]">
                 Our strategy to get{" "}
