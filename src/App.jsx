@@ -548,7 +548,7 @@ export default function MotionHolicPortfolio() {
       <div className="fixed inset-0 -z-10 opacity-[0.08] [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:90px_90px]" />
 
       {/* ── HEADER ───────────────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-50 px-4 pt-4 sm:px-6">
+      <header className="fixed left-0 right-0 top-0 z-50 px-4 pt-4 sm:px-6">
         <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-white/[0.14] bg-transparent">
           {/* Main nav row */}
           <div className="flex items-center justify-between px-5 py-3.5">
@@ -619,7 +619,7 @@ export default function MotionHolicPortfolio() {
         </div>
       </header>
 
-      <main id="top">
+      <main id="top" className="pt-24">
         {/* ── HERO — two-column ────────────────────────────────────────── */}
         <section className="px-4 pb-20 pt-16 sm:px-6 lg:px-8 lg:pt-24">
           <div className="mx-auto max-w-7xl">
