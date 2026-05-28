@@ -239,6 +239,22 @@ iframe, img { transform: translateZ(0); }
 
 footer { background: radial-gradient(circle at 50% 0%, rgba(0, 81, 255, 0.08), transparent 34rem), linear-gradient(180deg, transparent, rgba(255,255,255,0.012)) !important; }
 
+/* ── Marquee ─────────────────────────────────────────────────────────────── */
+.mh-marquee {
+  display: flex;
+  width: max-content;
+  animation: mh-scroll 32s linear infinite;
+}
+.mh-marquee:hover { animation-play-state: paused; }
+@keyframes mh-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.333%); }
+}
+
+/* ── Typewriter cursor blink ─────────────────────────────────────────────── */
+.mh-cursor { animation: mh-blink 0.75s step-end infinite; }
+@keyframes mh-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
 @keyframes motionholic-soft-particles { 0% { transform: translate3d(0, 0, 0); background-position: 0 0, 48px 84px, 120px 40px; } 50% { transform: translate3d(0, -10px, 0); background-position: 18px -28px, 60px 46px, 96px 8px; } 100% { transform: translate3d(0, 0, 0); background-position: 0 -56px, 48px 28px, 120px -16px; } }
 @keyframes premium-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -8px, 0); } }
 @keyframes premium-glow { 0%, 100% { opacity: 0.7; filter: blur(0); } 50% { opacity: 1; filter: blur(1px); } }

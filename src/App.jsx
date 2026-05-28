@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useMemo, useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 
 /* ─── Constants ──────────────────────────────────────────────────────────── */
 const calendlyLink = "https://calendly.com/ayonpalovi10/video-editing-service";
@@ -42,11 +42,11 @@ const services = [
 ];
 
 const trustStats = [
-  { value: "2000+", label: "Videos Edited" },
-  { value: "2×", label: "Engagement Boost" },
-  { value: "4.9★", label: "Client Rating" },
-  { value: "5 Yrs", label: "Experience" },
-  { value: "Fast", label: "Delivery" },
+  { value: "2000+", label: "Videos Edited",   num: 2000, suffix: "+",    decimals: 0 },
+  { value: "2×",   label: "Engagement Boost", num: 2,    suffix: "×",    decimals: 0 },
+  { value: "4.9★", label: "Client Rating",    num: 4.9,  suffix: "★",    decimals: 1 },
+  { value: "5 Yrs", label: "Experience",      num: 5,    suffix: " Yrs", decimals: 0 },
+  { value: "Fast",  label: "Delivery",        num: null },
 ];
 
 const processSteps = [
@@ -208,6 +208,70 @@ function SectionBadge({ children }) {
       <span className="h-1.5 w-1.5 rounded-full bg-[#0051FF]" />
       <span>{children}</span>
     </div>
+  );
+}
+
+/* ─── CountUp ────────────────────────────────────────────────────────────── */
+function CountUp({ to, duration = 2, suffix = "", decimals = 0 }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    let start = null;
+    const ms = duration * 1000;
+    const step = (ts) => {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / ms, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setVal(parseFloat((eased * to).toFixed(decimals)));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [inView, to, duration, decimals]);
+  return <span ref={ref}>{val}{suffix}</span>;
+}
+
+/* ─── Typewriter ─────────────────────────────────────────────────────────── */
+function Typewriter({ text, speed = 72, delay = 400 }) {
+  const [shown, setShown] = useState(0);
+  const [blink, setBlink] = useState(true);
+  useEffect(() => {
+    const init = setTimeout(() => {
+      const id = setInterval(() => {
+        setShown((s) => {
+          if (s >= text.length) {
+            clearInterval(id);
+            setTimeout(() => setBlink(false), 1100);
+            return s;
+          }
+          return s + 1;
+        });
+      }, speed);
+      return () => clearInterval(id);
+    }, delay);
+    return () => clearTimeout(init);
+  }, [text, speed, delay]);
+  return (
+    <>
+      {text.slice(0, shown)}
+      {blink && <span className="mh-cursor inline-block w-[1.5px] h-[0.82em] bg-white/75 ml-px align-middle" />}
+    </>
+  );
+}
+
+/* ─── FadeIn ─────────────────────────────────────────────────────────────── */
+function FadeIn({ children, delay = 0, y = 22, className = "" }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
   );
 }
 
@@ -668,7 +732,7 @@ export default function MotionHolicPortfolio() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
               >
-                <SectionBadge>Video Editing Studio</SectionBadge>
+                <SectionBadge><Typewriter text="Video Editing Studio" /></SectionBadge>
                 <h1 className="mt-4 text-[2.75rem] font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-[3.5rem] xl:text-6xl">
                   From Frame to Frame,{" "}
                   <span className="text-[#0051FF]">We Grow Your Name</span>
@@ -699,6 +763,12 @@ export default function MotionHolicPortfolio() {
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.75, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                style={{ y: 0 }}
+                whileInView="visible"
+              >
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               >
                 <div className="rounded-[32px] border border-white/10 bg-white/5 p-3 shadow-[0_24px_90px_rgba(0,81,255,0.14)] backdrop-blur-2xl">
                   <div className="aspect-video overflow-hidden rounded-[24px]">
@@ -714,43 +784,36 @@ export default function MotionHolicPortfolio() {
                   </div>
                 </div>
               </motion.div>
+              </motion.div>
             </div>
           </div>
         </section>
 
-        {/* ── TRUST BAR ────────────────────────────────────────────────── */}
-        <div className="border-y border-white/8 bg-white/[0.015] px-4 py-6 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div className="grid grid-cols-2 gap-y-7 sm:grid-cols-3 lg:grid-cols-5">
-              {trustStats.map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.4, delay: i * 0.06 }}
-                  className={cn(
-                    "flex flex-col items-center text-center",
-                    i < trustStats.length - 1 && "lg:border-r lg:border-white/10"
-                  )}
-                >
-                  <p className="text-2xl font-bold text-white sm:text-3xl">{stat.value}</p>
-                  <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-white/45">{stat.label}</p>
-                </motion.div>
-              ))}
-            </div>
+        {/* ── TRUST BAR — infinite marquee ─────────────────────────────── */}
+        <div className="border-y border-white/8 bg-white/[0.015] py-6 overflow-hidden">
+          <div className="mh-marquee flex items-center">
+            {[...trustStats, ...trustStats, ...trustStats].map((stat, i) => (
+              <div key={i} className="flex shrink-0 flex-col items-center px-14 text-center">
+                <p className="text-2xl font-bold text-white sm:text-3xl">
+                  {stat.num !== null && stat.num !== undefined
+                    ? <CountUp to={stat.num} suffix={stat.suffix} decimals={stat.decimals ?? 0} />
+                    : stat.value}
+                </p>
+                <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-white/45">{stat.label}</p>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* ── SERVICES ─────────────────────────────────────────────────── */}
         <section id="services" className="px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <div className="mb-14 text-center">
+            <FadeIn className="mb-14 text-center">
               <SectionBadge>What We Offer</SectionBadge>
               <h2 className="text-3xl font-semibold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-[2.75rem]">
                 Services We <span className="text-[#0051FF]">Excel At</span>
               </h2>
-            </div>
+            </FadeIn>
 
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {services.map((service, i) => (
@@ -760,7 +823,8 @@ export default function MotionHolicPortfolio() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, amount: 0.25 }}
                   transition={{ duration: 0.55, delay: i * 0.07 }}
-                  whileHover={{ y: -6 }}
+                  whileHover={{ y: -7, boxShadow: "0 0 45px rgba(0,81,255,0.22), 0 20px 60px rgba(0,0,0,0.4)" }}
+                  transition={{ duration: 0.25 }}
                   className="rounded-[28px] border border-white/10 bg-white/5 p-8 shadow-[0_16px_60px_rgba(0,0,0,0.2)] backdrop-blur-xl"
                 >
                   <div className="mb-4 text-4xl">{service.icon}</div>
@@ -776,13 +840,13 @@ export default function MotionHolicPortfolio() {
         <section id="work" className="px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="mb-10 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-              <div>
+              <FadeIn>
                 <SectionBadge>Our Work</SectionBadge>
                 <h2 className="text-3xl font-semibold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-[2.75rem]">
                   Some of our{" "}
                   <span className="text-[#0051FF]">Featured Projects</span>
                 </h2>
-              </div>
+              </FadeIn>
 
               {/* Tab switcher */}
               <div className="flex shrink-0 gap-1.5 rounded-full border border-white/10 bg-white/5 p-1.5 backdrop-blur-xl">
@@ -827,13 +891,13 @@ export default function MotionHolicPortfolio() {
         <section id="process" className="px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             {/* Heading — centered */}
-            <div className="mb-14 text-center">
+            <FadeIn className="mb-14 text-center">
               <SectionBadge>Our Process</SectionBadge>
               <h2 className="text-3xl font-semibold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-[2.75rem]">
                 Our strategy to get{" "}
                 <span className="text-[#0051FF]">you leads with content</span>
               </h2>
-            </div>
+            </FadeIn>
 
             {/* ── Wavy diagram — desktop (lg+) only ── */}
             <div className="hidden lg:block">
@@ -876,13 +940,13 @@ export default function MotionHolicPortfolio() {
         {/* ── PRICING — side by side ────────────────────────────────────── */}
         <section id="pricing" className="px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <div className="mb-14 text-center">
+            <FadeIn className="mb-14 text-center">
               <SectionBadge>Pricing Plans</SectionBadge>
               <h2 className="text-3xl font-semibold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-[2.75rem]">
                 The Best Service{" "}
                 <span className="text-[#0051FF]">Package For You</span>
               </h2>
-            </div>
+            </FadeIn>
 
             <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-2">
               {/* Basic */}
@@ -891,6 +955,7 @@ export default function MotionHolicPortfolio() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.25 }}
                 transition={{ duration: 0.55 }}
+                whileHover={{ y: -6, boxShadow: "0 0 40px rgba(0,81,255,0.15), 0 24px 80px rgba(0,0,0,0.35)" }}
                 className="flex flex-col rounded-[32px] border border-white/10 bg-white/5 p-8 shadow-[0_24px_90px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
               >
                 <h3 className="mb-1 text-2xl font-semibold text-white">Basic Plan</h3>
@@ -920,6 +985,7 @@ export default function MotionHolicPortfolio() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.25 }}
                 transition={{ duration: 0.55, delay: 0.1 }}
+                whileHover={{ y: -6, boxShadow: "0 0 55px rgba(0,81,255,0.35), 0 24px 80px rgba(0,0,0,0.35)" }}
                 className="flex flex-col rounded-[32px] border border-[#0051FF]/40 p-8 shadow-[0_24px_90px_rgba(0,81,255,0.16)] backdrop-blur-2xl"
                 style={{ background: "linear-gradient(160deg, rgba(0,81,255,0.12) 0%, rgba(255,255,255,0.03) 100%)" }}
               >
@@ -953,11 +1019,13 @@ export default function MotionHolicPortfolio() {
         {/* ── TESTIMONIALS — stars + video cards ───────────────────────── */}
         <section id="testimonials" className="px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl text-center">
-            <SectionBadge>Client Testimonials</SectionBadge>
-            <h2 className="text-3xl font-semibold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-[2.75rem]">
-              Hear What They&apos;re{" "}
-              <span className="text-[#0051FF]">Saying About Us</span>
-            </h2>
+            <FadeIn>
+              <SectionBadge>Client Testimonials</SectionBadge>
+              <h2 className="text-3xl font-semibold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-[2.75rem]">
+                Hear What They&apos;re{" "}
+                <span className="text-[#0051FF]">Saying About Us</span>
+              </h2>
+            </FadeIn>
 
             <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {testimonials.map((t, i) => (
@@ -967,6 +1035,7 @@ export default function MotionHolicPortfolio() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, amount: 0.25 }}
                   transition={{ duration: 0.55, delay: i * 0.1 }}
+                  whileHover={{ y: -6, boxShadow: "0 0 40px rgba(0,81,255,0.18), 0 20px 60px rgba(0,0,0,0.4)" }}
                   className="flex flex-col rounded-[28px] border border-white/10 bg-white/5 p-6 shadow-[0_16px_60px_rgba(0,0,0,0.2)] backdrop-blur-xl"
                 >
                   {/* Stars */}
@@ -998,12 +1067,12 @@ export default function MotionHolicPortfolio() {
         {/* ── FAQ ──────────────────────────────────────────────────────── */}
         <section id="faq" className="px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <div className="mb-14 text-center">
+            <FadeIn className="mb-14 text-center">
               <SectionBadge>FAQ</SectionBadge>
               <h2 className="text-3xl font-semibold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-[2.75rem]">
                 Got <span className="text-[#0051FF]">Questions?</span>
               </h2>
-            </div>
+            </FadeIn>
             <FAQAccordion />
           </div>
         </section>
@@ -1011,10 +1080,20 @@ export default function MotionHolicPortfolio() {
 
       {/* ── FOOTER ───────────────────────────────────────────────────────── */}
       <footer className="border-t border-white/8 bg-black/20 px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-[22px] border border-white/10 bg-white/5 shadow-[0_0_45px_rgba(0,81,255,0.18)]">
+        <motion.div
+          className="mx-auto max-w-4xl text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <motion.div
+            className="mx-auto flex h-16 w-16 items-center justify-center rounded-[22px] border border-white/10 bg-white/5 shadow-[0_0_45px_rgba(0,81,255,0.18)]"
+            animate={{ boxShadow: ["0 0 45px rgba(0,81,255,0.18)", "0 0 70px rgba(0,81,255,0.35)", "0 0 45px rgba(0,81,255,0.18)"] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          >
             <img src="/logo.avif" alt="MotionHolic logo" className="h-10 w-10 object-contain" />
-          </div>
+          </motion.div>
           <h3 className="mt-5 text-2xl font-semibold text-white">MotionHolic</h3>
           <div className="mt-6 flex items-center justify-center gap-4">
             <a
@@ -1044,7 +1123,7 @@ export default function MotionHolicPortfolio() {
             </a>
           </div>
           <p className="mt-8 text-sm text-white/40">© Copyright 2026 MotionHolic — All rights reserved.</p>
-        </div>
+        </motion.div>
       </footer>
     </div>
   );
