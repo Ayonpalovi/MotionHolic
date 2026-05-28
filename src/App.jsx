@@ -684,7 +684,7 @@ export default function MotionHolicPortfolio() {
               <p className="font-semibold tracking-wide">MotionHolic</p>
             </a>
 
-            <nav className="hidden items-center gap-8 lg:flex">
+            <nav className="hidden items-center gap-5 md:flex lg:gap-8">
               {navItems.map((item) => (
                 <a key={item.label} href={item.href} className="text-sm text-white/70 transition hover:text-white">
                   {item.label}
@@ -692,10 +692,10 @@ export default function MotionHolicPortfolio() {
               ))}
             </nav>
 
-            <div className="hidden lg:block">
+            <div className="hidden md:block">
               <button
                 onClick={openCalendly}
-                className="rounded-full border border-[#0051FF]/30 bg-[#0051FF] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_0_28px_rgba(0,81,255,0.35)] transition hover:scale-[1.03] hover:shadow-[0_0_40px_rgba(0,81,255,0.55)]"
+                className="rounded-full border border-[#0051FF]/30 bg-[#0051FF] px-4 py-2 text-sm font-semibold text-white shadow-[0_0_28px_rgba(0,81,255,0.35)] transition hover:scale-[1.03] hover:shadow-[0_0_40px_rgba(0,81,255,0.55)] lg:px-5 lg:py-2.5"
                 type="button"
               >
                 Book a call
@@ -704,7 +704,7 @@ export default function MotionHolicPortfolio() {
 
             <button
               onClick={() => setMenuOpen((s) => !s)}
-              className="lg:hidden"
+              className="md:hidden"
               type="button"
               aria-label="Toggle menu"
             >
@@ -746,11 +746,11 @@ export default function MotionHolicPortfolio() {
         </div>
       </header>
 
-      <main id="top" className="pt-24">
+      <main id="top" className="pt-20 md:pt-24">
         {/* ── HERO — two-column ────────────────────────────────────────── */}
-        <section className="px-4 pb-20 pt-16 sm:px-6 lg:px-8 lg:pt-24">
+        <section className="px-4 pb-12 pt-8 sm:px-6 sm:pb-16 sm:pt-12 lg:px-8 lg:pb-20 lg:pt-20">
           <div className="mx-auto max-w-7xl">
-            <div className="grid items-center gap-12 lg:grid-cols-2">
+            <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
 
               {/* Left — headline + CTA */}
               <motion.div
@@ -759,7 +759,7 @@ export default function MotionHolicPortfolio() {
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
               >
                 <SectionBadge><Typewriter text="Video Editing Studio" /></SectionBadge>
-                <h1 className="mt-4 text-[2.75rem] font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-[3.5rem] xl:text-6xl">
+                <h1 className="mt-4 text-[1.9rem] font-semibold leading-[1.08] tracking-tight text-white sm:text-[2.75rem] lg:text-[3.5rem] xl:text-6xl">
                   From Frame to Frame,{" "}
                   <span className="text-[#0051FF]">We Grow Your Name</span>
                 </h1>
@@ -832,7 +832,7 @@ export default function MotionHolicPortfolio() {
         </div>
 
         {/* ── SERVICES ─────────────────────────────────────────────────── */}
-        <section id="services" className="px-4 py-24 sm:px-6 lg:px-8">
+        <section id="services" className="px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-7xl">
             <FadeIn className="mb-14 text-center">
               <SectionBadge>What We Offer</SectionBadge>
@@ -851,11 +851,11 @@ export default function MotionHolicPortfolio() {
                   transition={{ duration: 0.55, delay: i * 0.07 }}
                   whileHover={{ y: -7, boxShadow: "0 0 45px rgba(0,81,255,0.22), 0 20px 60px rgba(0,0,0,0.4)" }}
                   transition={{ duration: 0.25 }}
-                  className="rounded-[28px] border border-white/10 bg-white/5 p-8 shadow-[0_16px_60px_rgba(0,0,0,0.2)] backdrop-blur-xl"
+                  className="rounded-[28px] border border-white/10 bg-white/5 p-5 shadow-[0_16px_60px_rgba(0,0,0,0.2)] backdrop-blur-xl sm:p-7 lg:p-8"
                 >
-                  <div className="mb-4 text-4xl">{service.icon}</div>
-                  <h3 className="mb-3 text-lg font-semibold text-white">{service.title}</h3>
-                  <p className="text-sm leading-7 text-white/55">{service.desc}</p>
+                  <div className="mb-3 text-3xl sm:text-4xl">{service.icon}</div>
+                  <h3 className="mb-2 text-base font-semibold text-white sm:mb-3 sm:text-lg">{service.title}</h3>
+                  <p className="text-sm leading-6 text-white/55 sm:leading-7">{service.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -863,7 +863,7 @@ export default function MotionHolicPortfolio() {
         </section>
 
         {/* ── WORK — tabbed portfolio ───────────────────────────────────── */}
-        <section id="work" className="px-4 py-24 sm:px-6 lg:px-8">
+        <section id="work" className="px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-7xl">
             <div className="mb-10 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
               <FadeIn>
@@ -914,7 +914,7 @@ export default function MotionHolicPortfolio() {
         </section>
 
         {/* ── PROCESS — wavy SVG path diagram ──────────────────────────── */}
-        <section id="process" className="px-4 py-24 sm:px-6 lg:px-8">
+        <section id="process" className="px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-7xl">
             {/* Heading — centered */}
             <FadeIn className="mb-14 text-center">
@@ -939,13 +939,13 @@ export default function MotionHolicPortfolio() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, amount: 0.25 }}
                   transition={{ duration: 0.55, delay: i * 0.08 }}
-                  className="relative rounded-[28px] border border-white/10 bg-white/5 p-8 shadow-[0_16px_60px_rgba(0,0,0,0.2)] backdrop-blur-xl"
+                  className="relative rounded-[28px] border border-white/10 bg-white/5 p-5 shadow-[0_16px_60px_rgba(0,0,0,0.2)] backdrop-blur-xl sm:p-8"
                 >
-                  <p className="mb-5 font-black leading-none" style={{ fontSize: "3.5rem", color: "rgba(0,81,255,0.22)" }}>
+                  <p className="mb-4 text-[2.5rem] font-black leading-none sm:mb-5 sm:text-[3.5rem]" style={{ color: "rgba(0,81,255,0.22)" }}>
                     {step.n}
                   </p>
-                  <h3 className="mb-3 text-lg font-semibold capitalize text-white">{step.title}</h3>
-                  <p className="text-sm leading-7 text-white/55">{step.desc}</p>
+                  <h3 className="mb-2 text-base font-semibold capitalize text-white sm:mb-3 sm:text-lg">{step.title}</h3>
+                  <p className="text-[13px] leading-6 text-white/55 sm:text-sm sm:leading-7">{step.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -964,7 +964,7 @@ export default function MotionHolicPortfolio() {
         </section>
 
         {/* ── PRICING — side by side ────────────────────────────────────── */}
-        <section id="pricing" className="px-4 py-24 sm:px-6 lg:px-8">
+        <section id="pricing" className="px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-7xl">
             <FadeIn className="mb-14 text-center">
               <SectionBadge>Pricing Plans</SectionBadge>
@@ -1043,7 +1043,7 @@ export default function MotionHolicPortfolio() {
         </section>
 
         {/* ── TESTIMONIALS — stars + video cards ───────────────────────── */}
-        <section id="testimonials" className="px-4 py-24 sm:px-6 lg:px-8">
+        <section id="testimonials" className="px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-7xl text-center">
             <FadeIn>
               <SectionBadge>Client Testimonials</SectionBadge>
@@ -1091,7 +1091,7 @@ export default function MotionHolicPortfolio() {
         </section>
 
         {/* ── FAQ ──────────────────────────────────────────────────────── */}
-        <section id="faq" className="px-4 py-24 sm:px-6 lg:px-8">
+        <section id="faq" className="px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-7xl">
             <FadeIn className="mb-14 text-center">
               <SectionBadge>FAQ</SectionBadge>

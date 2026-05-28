@@ -271,6 +271,8 @@ footer { background: radial-gradient(circle at 50% 0%, rgba(0, 81, 255, 0.08), t
   body::after { opacity: 0.20; background-size: 185px 185px, 285px 285px, 380px 380px; animation-duration: 56s; }
   section > div, header > div, footer > div { width: min(100% - 24px, 100%) !important; }
   [class*="rounded-[32px]"], [class*="rounded-[28px]"], [class*="rounded-[24px]"] { border-radius: 22px !important; }
+  p { line-height: 1.62 !important; }
+  h2 { font-size: clamp(1.55rem, 6.5vw, 2.2rem) !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {
