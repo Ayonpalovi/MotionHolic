@@ -85,6 +85,10 @@ const faqItems = [
     a: "Once you share your project details, I carefully review your vision and requirements. From there, I dive into the creative process — editing, designing, and refining until it matches your expectations. You'll receive regular updates, and revisions are always welcome to make sure the final result hits the mark.",
   },
   {
+    q: "Who do you work with?",
+    a: "Mostly creators, podcasters, and YouTubers — plus e-commerce brands, business and fitness coaches, and marketing agencies who need reliable, on-brand video every week.",
+  },
+  {
     q: "What if I need more revisions?",
     a: "No problem! We offer unlimited revisions to ensure your design is exactly how you envision it.",
   },
