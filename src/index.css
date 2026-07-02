@@ -70,6 +70,10 @@ body::after {
   background-position: 0 0, 48px 84px, 120px 40px;
   animation: motionholic-soft-particles 42s linear infinite;
   mask-image: linear-gradient(180deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  /* GPU-only layer: only `transform` is animated below, never background-position,
+     so this never triggers a full-viewport repaint on every frame. */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 * { box-sizing: border-box; }
@@ -123,6 +127,13 @@ header {
   box-shadow: none !important;
 }
 
+/* The sticky nav's inner glass panel is on-screen for the entire scroll —
+   give it its own compositor layer so it's composited, not repainted. */
+header > div {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
 header a,
 header button { transition: color 220ms ease, transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease; }
 header nav a:hover,
@@ -155,8 +166,8 @@ button[class*="bg-[#0051FF]"]:hover { box-shadow: 0 0 0 1px rgba(255,255,255,0.1
 #process [class*="rounded-[32px]"] {
   background: var(--glass-bg) !important;
   background-image: linear-gradient(180deg, rgba(255,255,255,0.070), rgba(255,255,255,0.030)) !important;
-  backdrop-filter: blur(22px) saturate(150%) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(150%) !important;
+  backdrop-filter: blur(14px) saturate(130%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(130%) !important;
   border: 1px solid var(--glass-border) !important;
   box-shadow: var(--glass-shadow) !important;
 }
@@ -172,16 +183,16 @@ iframe,
 [class*="aspect-[9/16]"],
 [aria-label*="Play"] span {
   border-color: var(--glass-border) !important;
-  backdrop-filter: blur(22px) saturate(150%) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(150%) !important;
+  backdrop-filter: blur(14px) saturate(130%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(130%) !important;
 }
 
 /* Floating badges and small glass pills */
 [class*="rounded-full"][class*="border"] {
   background: rgba(255, 255, 255, 0.045) !important;
   border-color: rgba(255, 255, 255, 0.09) !important;
-  backdrop-filter: blur(22px) saturate(150%) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(150%) !important;
+  backdrop-filter: blur(14px) saturate(130%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(130%) !important;
   box-shadow: 0 14px 44px rgba(0, 0, 0, 0.28) !important;
 }
 
@@ -256,7 +267,7 @@ footer { background: radial-gradient(circle at 50% 0%, rgba(0, 81, 255, 0.08), t
 .mh-cursor { animation: mh-blink 0.75s step-end infinite; }
 @keyframes mh-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-@keyframes motionholic-soft-particles { 0% { transform: translate3d(0, 0, 0); background-position: 0 0, 48px 84px, 120px 40px; } 50% { transform: translate3d(0, -10px, 0); background-position: 18px -28px, 60px 46px, 96px 8px; } 100% { transform: translate3d(0, 0, 0); background-position: 0 -56px, 48px 28px, 120px -16px; } }
+@keyframes motionholic-soft-particles { 0% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(10px, -10px, 0); } 100% { transform: translate3d(0, 0, 0); } }
 @keyframes premium-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -8px, 0); } }
 @keyframes premium-glow { 0%, 100% { opacity: 0.7; filter: blur(0); } 50% { opacity: 1; filter: blur(1px); } }
 @keyframes premium-shine { 0% { transform: translateX(-120%) skewX(-16deg); } 100% { transform: translateX(240%) skewX(-16deg); } }
